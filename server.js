@@ -1,6 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser')
+const passport = require('passport');
+
 
 const auth = require('./routes/api/auth')
 
@@ -20,9 +22,12 @@ mongoose.connect(db)
     })
     .catch((err) => console.log(err));
 
-app.get('/', (req, res) => {
-    res.send('Hello!')
-})
+//passport middleware
+app.use(passport.initialize());
+
+//passport Config
+// require('./config/passport')(passport);
+
 app.use('/api/auth', auth);
 
 const port = process.env.PORT || 7000

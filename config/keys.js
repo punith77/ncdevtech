@@ -1,3 +1,7 @@
-module.exports = {
-    mongoURI: 'mongodb://punith:punith123@ds135547.mlab.com:35547/authentication'
+if (process.env.NODE_ENV === 'production') {
+    module.exports = require('./keys_prod')
 }
+else {
+    module.exports = require('./keys_dev')
+}
+
