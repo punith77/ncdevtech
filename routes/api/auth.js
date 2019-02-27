@@ -26,7 +26,6 @@ router.post('/register', (req, res) => {
             const newUser = new Auth({
                 firstName: req.body.firstName,
                 lastName: req.body.lastName,
-                userName: req.body.userName,
                 password: req.body.password,
                 email: req.body.email,
                 registerNumber: req.body.registerNumber,
@@ -50,14 +49,14 @@ router.post('/register', (req, res) => {
 // @access public
 
 router.post('/login', (req, res) => {
-    const userName = req.body.userName;
+    const email = req.body.email;
     const password = req.body.password
 
     // Find user by email 
-    Auth.findOne({ userName })
+    Auth.findOne({ email })
         .then(user => {
             if (!user) {
-                return res.status(404).json({ email: 'Username not found' });
+                return res.status(404).json({ email: 'Email not found' });
             }
 
             // Check Password
@@ -68,7 +67,7 @@ router.post('/login', (req, res) => {
 
                     const payload = {
                         id: user.id,
-                        name: user.username
+                        email: user.email
                     }
                     //sign token
                     jwt.sign(
