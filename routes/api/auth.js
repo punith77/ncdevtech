@@ -86,6 +86,13 @@ router.post('/login', (req, res) => {
         })
 })
 
+router.get('/download', (req, res) => {
+    var file = __dirname + '/download.jpeg';
+    res.download(file)
+})
+
+
+
 
 
 module.exports = router
